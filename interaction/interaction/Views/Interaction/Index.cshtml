@@ -1,0 +1,79 @@
+﻿@*@model IEnumerable<SearchAPI.Interactions>*@
+@model interaction.Models.Interaction
+
+@{
+    ViewBag.Title = "Index";
+}
+@Html.ActionLink("All Interactions", "GetAll")
+@*@Html.ActionLink("Search for diseaseCode", "search", "Search")*@
+<center>
+    <h2>consum instruction search</h2>
+
+
+
+    @using (Html.BeginForm("Index", "Search", FormMethod.Get, Model))
+    {<table class="table">
+            <tr>
+                <th>
+                    <span>Enter drugCode</span>
+                    @Html.TextBoxFor(model => model.drugCode)
+                </th>
+                <th>
+                    <span>Enter diseaseCode</span>
+                    @Html.TextBoxFor(model => model.diseaseCode)
+                </th>
+                <th>
+                    <span>Enter type</span>
+                    @Html.TextBoxFor(model => model.type)
+                </th>
+                <th>
+
+                    <input type="submit" value="Search" name="submit" />
+                </th>
+            </tr>
+        </table>
+    }
+</center>
+
+<table class="table">
+    @if (@ViewBag.resultList != null)
+    {
+        var InteractionsList = (List<interaction.Models.Interaction>)@ViewBag.resultList;
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.decription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.drugCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.diseaseCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.type)
+            </th>
+            <th></th>
+        </tr>
+        if (InteractionsList != null && InteractionsList.Count() > 0)
+        {
+            foreach (var item in InteractionsList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.decription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.drugCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.diseaseCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.type)
+                    </td>
+
+                </tr>
+            }
+        }
+    }
+</table>
